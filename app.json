@@ -32,6 +32,12 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "expo-font",
+        {
+          "font": ["node_modules/@expo-google-fonts/inter/Inter_900Black.ttf"]
+        }
       ]
     ],
     "experiments": {
