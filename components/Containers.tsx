@@ -6,10 +6,12 @@ import { CategoryTitle } from "./TextUtilities"
 import React, { ReactElement, ReactNode } from "react";
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
+
 SplashScreen.preventAutoHideAsync();
 
 export function LayoutContainer(
-  { children, style } : { children?: ReactNode, style?: ViewStyle }
+  { children, style, safeArea = true } : 
+  { children?: ReactNode, style?: ViewStyle, safeArea?: boolean }
 ) : ReactElement {
   const _styles = StyleSheet.create({
     layoutStyle: {
@@ -21,15 +23,22 @@ export function LayoutContainer(
     } 
 })
 
-  return (
-    <SafeAreaProvider>
-      <SafeAreaView
-        style={ [_styles.layoutStyle, style] }
-      >
+  if (safeArea)
+    return (
+      <SafeAreaProvider>
+        <SafeAreaView
+          style={ [_styles.layoutStyle, style] }
+        >
+          { children }
+        </SafeAreaView>
+      </SafeAreaProvider>
+    )
+  else 
+    return (
+      <View style={ [_styles.layoutStyle, style] }>
         { children }
-      </SafeAreaView>
-    </SafeAreaProvider>
-  )
+      </View>
+    )
 }
 
 export function Container(

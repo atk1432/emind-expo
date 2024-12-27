@@ -27,7 +27,7 @@ export default function CategoryLayout() {
       <Stack.Screen 
         name="StressTest" 
         component={ MindTestQuestions } 
-        options={{ title: "Câu hỏi " }} 
+        options={{ title: "Câu hỏi ", headerStyle: { backgroundColor: 'white' } }} 
       />
     </Stack.Navigator>
   )
