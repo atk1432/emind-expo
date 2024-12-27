@@ -1,16 +1,19 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { Octicons, Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import CategoryLayout from '@/app/categories/_layout'
+import { StatusBar } from 'expo-status-bar';
 import Home from '@/app/home'
 import About from './about';
+import React from 'react';
 
 
 const Tabs = createBottomTabNavigator()
 const tabBarIconSize = 15
 
 export default function TabLayout() {
-  return (
+  return (<>
+    <StatusBar hidden={false} backgroundColor='rgb(162, 162, 162)' />
     <Tabs.Navigator 
       screenOptions={{
         headerShown: false,
@@ -23,31 +26,51 @@ export default function TabLayout() {
         component={ CategoryLayout }  
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
+            <Octicons name="home" size={24} color="black" />
           ),
           headerShown: false,
         }}
       />
       <Tabs.Screen 
-        name="About" 
+        name="Search" 
         component={ About } 
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="list" size={size} color={color} />
+            <Octicons name="search" size={24} color="black" />
+          )
+        }}
+      />
+      <Tabs.Screen 
+        name="Heart" 
+        component={ About } 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Octicons name="heart" size={24} color="black" />
+          )
+        }}
+      />
+      <Tabs.Screen 
+        name="User" 
+        component={ About } 
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="user" size={24} color="black" />
           )
         }}
       />
     </Tabs.Navigator>
-  );
+  </>);
 }
 
 const styles = StyleSheet.create({
   tabBar: {
-    borderRadius: 20,
-    borderTopWidth: 0,
-    bottom: 10,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    backgroundColor: 'rgb(241, 239, 239)',
     position: 'absolute',
-    backgroundColor: '#ededed'
+    marginLeft: (Dimensions.get('window').width / 2) - 350/2,
+    width: 350,
+    paddingTop: 8,
   },
   tabBarIcon: {
     height: 10

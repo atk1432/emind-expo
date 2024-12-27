@@ -1,11 +1,14 @@
 import { Text } from "@react-navigation/elements"
 import { Inter_600SemiBold, useFonts } from '@expo-google-fonts/inter'
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
+import { TextStyle, ViewStyle } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
-export function _Text({ style = {}, children }) {
+export function _Text(
+  { style = {}, children } : { children?: ReactNode, style?: TextStyle }
+) {
   const [ loaded, error ] = useFonts({
     Inter_600SemiBold
   })
@@ -20,12 +23,13 @@ export function _Text({ style = {}, children }) {
     return null;
   }
 
-  return <Text style={{ fontFamily: 'Inter_600SemiBold', ...style }}>
+  return <Text style={[{ fontFamily: 'Inter_600SemiBold' }, style ]}>
     { children }
   </Text>
 } 
 
-export function CategoryTitle({ children }) {
+export function CategoryTitle({ children } : { children?: ReactNode }) {
+
   return (
     <_Text style={{
       fontWeight: 600,

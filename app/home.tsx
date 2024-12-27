@@ -1,12 +1,12 @@
 import { HeaderTitle } from "@react-navigation/elements"
 import { useNavigation } from "@react-navigation/native"
-import { StyleSheet, View, ImageBackground, Image } from "react-native"
+import { StyleSheet, View, ImageBackground, Image, Dimensions } from "react-native"
 import { Text } from "@react-navigation/elements"
 import { _Text } from "@/components/TextUtilities"
 import { Container, LayoutContainer } from "@/components/Containers"
 import { CategoryCard } from "@/components/CardUtilities"
 import React from 'react'
-import Ionicons from "@expo/vector-icons/Ionicons"
+import { Ionicons, FontAwesome6 } from "@expo/vector-icons"
 const BackgroundImg = require("@/assets/images/bg.jpg")
 const UserImg = require("@/assets/images/user.jpg")
 
@@ -16,10 +16,11 @@ const Welcome = () => (
     source={ BackgroundImg } 
     resizeMode='cover'
     imageStyle={{ 
-      borderRadius: 10
+      borderRadius: 10,
+      width: Dimensions.get('window').width - 18
     }}
     style={{
-      width: 500,
+      alignSelf: 'stretch',
       padding: 10,
       paddingLeft: 18,
       paddingRight: 18,
@@ -32,7 +33,7 @@ const Welcome = () => (
       marginTop: 12,
       marginBottom: 16
     }}>
-      <Ionicons name="list" size={30} color={'white'} />
+      <FontAwesome6 name="bars-staggered" size={24} color="white" />
       <Image 
         source={ UserImg } 
         resizeMode="cover" 
@@ -60,7 +61,7 @@ const Category = () => {
     { 
       name: 'Bài test stress', 
       describe: 'đây là 1 bài test stress',
-      link: 'Căng thẳng',
+      link: 'Stress',
       img: require("@/assets/images/categories/stress.jpg")
     }
   ]

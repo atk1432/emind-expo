@@ -1,22 +1,34 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import Home from "@/app/home"
-import Stress from "./stress"
+import MindTest from "./mindTest"
+import MindTestQuestions from "./mindTestQuestions"
 
 const Stack = createNativeStackNavigator()
 
 export default function CategoryLayout() {
   return (
-    <Stack.Navigator
-      // screenOptions={{
-      //   headerTransparent: true
-      // }}
-    >
+    <Stack.Navigator screenOptions={{
+      // headerShadowVisible: false
+      headerTransparent: true,
+      headerTitle: '',
+      headerTitleAlign: 'center'
+    }}>
       <Stack.Screen 
         name="HomeMain" 
         component={ Home } 
         options={{ headerShown: false }} 
       />
-      <Stack.Screen name="Căng thẳng" component={ Stress } />
+      <Stack.Screen 
+        name="Stress" 
+        component={ MindTest } 
+        options={{ title: "" }} 
+      />
+
+      <Stack.Screen 
+        name="StressTest" 
+        component={ MindTestQuestions } 
+        options={{ title: "Câu hỏi " }} 
+      />
     </Stack.Navigator>
   )
 }
