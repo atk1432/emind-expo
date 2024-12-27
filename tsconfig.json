@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, "app/categories/_layout.tsx", "app/categories/heartRate.tsx", "app/_layout.tsx", "app/about.tsx", "app/home.tsx"  ]
 }

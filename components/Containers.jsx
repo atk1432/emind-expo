@@ -1,4 +1,3 @@
-import { Roboto, useFonts } from "@expo-google-fonts/inter"
 import * as SplashScreen from 'expo-splash-screen';
 import { SafeAreaProviderCompat } from "@react-navigation/elements"
 import { View } from "react-native";
@@ -8,29 +7,16 @@ import React from "react";
 
 SplashScreen.preventAutoHideAsync();
 
-export function LayoutContainer({ children }) {
-  const [ loaded, error ] = useFonts({
-    Roboto
-  })
-
-  useEffect(() => {
-    if (loaded || error) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded, error]);
-
-  if (!loaded && !error) {
-    return null;
-  }
-
+export function LayoutContainer({ children, marginTop = 0 }) {
   return (
     <View
       style={{ 
         flex: 1, 
-        padding: 40, 
-        paddingLeft: 28,
-        paddingRight: 28,
-        backgroundColor: 'white',
+        padding: 10, 
+        paddingLeft: 8,
+        paddingRight: 8,
+        backgroundColor: 'rgba(234, 234, 234, 0.2)',
+        marginTop: `${marginTop}px`
       }}
     >
       { children }
@@ -38,16 +24,25 @@ export function LayoutContainer({ children }) {
   )
 }
 
-export function Container({ title = '', children }) {
-  const categoryTitle = title ? <CategoryTitle>{ title }</CategoryTitle> : "" 
+export function Container({ title='', children }) {
+  var categoryTitle = ''
+  if (title) 
+    categoryTitle = (<CategoryTitle>{ title }</CategoryTitle>)
 
   return (
-    <>
+    <View style={{ 
+      marginTop: 15,
+      borderRadius: 10,
+      backgroundColor: 'white',
+      padding: 14,
+      paddingTop: 18,
+      paddingBottom: 18
+    }}>
       { categoryTitle }
       { children }
-    </>
+    </View>
   )
-}
+} 
 
 export function CardListContainer({ children }) {
   return (

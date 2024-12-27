@@ -9,13 +9,20 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "$(PRODUCT_NAME) needs access to your Camera.:)))"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA"
+      ],
+      "package": "com.anonymous.EMind"
     },
     "web": {
       "bundler": "metro",
@@ -33,15 +40,19 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      [
-        "expo-font",
-        {
-          "font": ["node_modules/@expo-google-fonts/inter/Inter_900Black.ttf"]
-        }
-      ]
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "44763e12-ef21-45cb-b72f-7594af965e57"
+      }
+    },
+    "owner": "atk1432"
   }
 }

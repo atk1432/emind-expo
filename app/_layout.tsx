@@ -1,6 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet } from 'react-native';
+import CategoryLayout from '@/app/categories/_layout'
 import Home from '@/app/home'
 import About from './about';
 
@@ -19,7 +20,7 @@ export default function TabLayout() {
     >
       <Tabs.Screen 
         name="Home" 
-        component={ Home }  
+        component={ CategoryLayout }  
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />

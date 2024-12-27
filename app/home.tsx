@@ -1,50 +1,98 @@
 import { HeaderTitle } from "@react-navigation/elements"
 import { useNavigation } from "@react-navigation/native"
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, View, ImageBackground, Image } from "react-native"
 import { Text } from "@react-navigation/elements"
+import { _Text } from "@/components/TextUtilities"
 import { Container, LayoutContainer } from "@/components/Containers"
 import { CategoryCard } from "@/components/CardUtilities"
 import React from 'react'
+import Ionicons from "@expo/vector-icons/Ionicons"
+const BackgroundImg = require("@/assets/images/bg.jpg")
+const UserImg = require("@/assets/images/user.jpg")
 
 
 const Welcome = () => (
-  <Container>
-    <HeaderTitle style={ style.helloText }>Hello,</HeaderTitle >
-    <Text style={ style.nameText }>Atk1432</Text>
-  </Container>
+  <ImageBackground 
+    source={ BackgroundImg } 
+    resizeMode='cover'
+    imageStyle={{ 
+      borderRadius: 10
+    }}
+    style={{
+      width: 500,
+      padding: 10,
+      paddingLeft: 18,
+      paddingRight: 18,
+    }}
+  >
+    <View style={{ 
+      justifyContent: 'space-between', 
+      alignItems: 'center',
+      flexDirection: 'row',
+      marginTop: 12,
+      marginBottom: 16
+    }}>
+      <Ionicons name="list" size={30} color={'white'} />
+      <Image 
+        source={ UserImg } 
+        resizeMode="cover" 
+        style={{ 
+          width: 40, 
+          height: 40,
+          overflow: 'hidden',
+          borderRadius: 100 
+        }} 
+      />
+    </View>
+    <_Text style={ style.helloText }>Xin chào,</_Text>
+    <_Text style={ style.nameText }>Atk1432</_Text>
+  </ImageBackground>
 )
 
 const Category = () => {
   const cards = [
-    { name: 'Nhịp tim', icon: 'heart', number: 78, unit: 'bpm', color: 'red' },
-    { name: 'Stress', icon: 'heart', number: 78, unit: 'bpm', color: 'green' }
+    { 
+      name: 'Bài test trầm cảm', 
+      describe: 'đây là 1 bài test trầm cảm',
+      link: '',
+      img: require("@/assets/images/categories/depression.jpg")
+    },
+    { 
+      name: 'Bài test stress', 
+      describe: 'đây là 1 bài test stress',
+      link: 'Căng thẳng',
+      img: require("@/assets/images/categories/stress.jpg")
+    }
   ]
 
   return (
-    <Container title="Sức khỏe">
+    <Container title="Bài kiểm tra tâm lí">
       <View style={{ 
         flexWrap: 'wrap', 
         flexDirection: 'row',
+        paddingLeft: 8,
+        paddingRight: 8,
         justifyContent: 'space-between'
       }}>
         { cards.map((card, index) => (
-          <View 
+          <CategoryCard
             key={ index }
-            style={{ 
-              flex: 0.45,         
-            }}
+            img={ card.img }
+            link={ card.link }
+            describe={ card.describe }
           >
-            <CategoryCard 
-              color={ card.color }
-              icon={ card.icon }
-              number={ card.number }
-              unit={ card.unit }
-            >
-                { card.name }
-            </CategoryCard>
-          </View>
+            { card.name }
+          </CategoryCard>
         )) }
       </View>
+    </Container>
+  )
+}
+
+const Guide = () => {
+  return (
+    <Container title="Hướng dẫn">
+      <_Text>sdfsd</_Text>
     </Container>
   )
 }
@@ -56,6 +104,7 @@ export default function Home() {
     <LayoutContainer>
       <Welcome />
       <Category />
+      <Guide />
     </LayoutContainer>
   )
 }
@@ -64,10 +113,13 @@ const style = StyleSheet.create({
   nameText: {
     fontWeight: 'medium',
     fontSize: 28,
-    marginTop: 8
+    marginTop: 8,
+    marginBottom: 12,
+    color: 'white'
   },
   helloText: {
     fontWeight: 'thin',
-    fontSize: 22
+    fontSize: 18,
+    color: 'white'
   },
 })
