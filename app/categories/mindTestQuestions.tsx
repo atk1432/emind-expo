@@ -6,6 +6,6 @@ import Question from "@/components/mindTests/Questions"
 
 export default function MindTestQuestions() {
   return (
-    <Question />
+    <Question name="Stress" />
   )
 }

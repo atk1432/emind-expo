@@ -1,8 +1,26 @@
 {
     "Stress": {
-        "name": "",
+        "name": "PSS-10",
         "image": "stress.jpg",
-        "describe": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia  deserunt mollit anim id est laborum.",
-        "questions": []
+        "describe": "PSS-10 (Perceived Stress Scale 10-item) là một công cụ đo lường mức độ căng thẳng nhận thức, được thiết kế để đánh giá cảm nhận của một cá nhân về mức độ căng thẳng mà họ trải qua trong một khoảng thời gian (thường là một tháng).\nCông cụ này được phát triển bởi Sheldon Cohen vào năm 1983 và là một trong những thang đo được sử dụng rộng rãi nhất trong các nghiên cứu về tâm lý học và y tế.",
+        "questions": [
+            "Trong tháng vừa qua, bạn đã cảm thấy bị quá tải bởi những công việc cần làm ở mức độ nào?",
+            "Trong tháng vừa qua, bạn đã cảm thấy không thể kiểm soát những điều quan trọng trong cuộc sống ở mức độ nào?",
+            "Trong tháng vừa qua, bạn đã cảm thấy lo lắng hay căng thẳng ở mức độ nào?",
+            "Trong tháng vừa qua, bạn đã cảm thấy rằng bạn không đủ khả năng để đối phó với những khó khăn ở mức độ nào?",
+            "Trong tháng vừa qua, bạn đã cảm thấy kiểm soát được mọi thứ trong cuộc sống ở mức độ nào?",
+            "Trong tháng vừa qua, bạn đã cảm thấy tự tin vào khả năng xử lý các vấn đề cá nhân ở mức độ",
+            "Trong tháng vừa qua, bạn đã cảm thấy rằng mọi thứ diễn ra theo ý muốn của mình ở mức độ nào?",
+            "Trong tháng vừa qua, bạn đã cảm thấy tức giận vì những điều ngoài tầm kiểm soát ở mức độ nào?",
+            "Trong tháng vừa qua, bạn đã cảm thấy những khó khăn của bạn đang ngày càng chồng chất ở mức độ nào?",
+            "Trong tháng vừa qua, bạn đã cảm thấy thư giãn hay bình tĩnh ở mức độ nào?"
+        ],
+        "answers": [
+            "Không bao giờ",
+            "Hiếm khi",
+            "Đôi khi",
+            "Thường xuyên",
+            "Luôn luôn"
+        ]
     }
 }

@@ -2,16 +2,9 @@ import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
 import { _Text } from "../TextUtilities";
 import { Container, LayoutContainer } from "../Containers";
 import { ReactNode, useState } from "react";
-import Animated, { FadingTransition, SequencedTransition, LinearTransition, useSharedValue,
-            useAnimatedStyle, withSpring, withTiming,  
-            Easing} from 'react-native-reanimated';
-import { transform } from "@babel/core";
-import { AntDesign } from "@expo/vector-icons";
+import Animated, { FadeInRight, FadeOutLeft, Easing} from 'react-native-reanimated';
+import QuestionsType from "@/api/mind_tests.json"
 
-
-FadingTransition.duration(1000).delay(500)
-// SequencedTransition.duration(1000).delay(500)
-// LinearTransition.delay(1000)
 
 
 const AnswerText = (
@@ -29,45 +22,33 @@ const AnswerText = (
 }
 
 const Answer = ({ children } : { children?: ReactNode }) => (
-  <View 
+  <Animated.View entering={FadeInRight} exiting={FadeOutLeft}
     style={[ styles.animatedView ]}
   >
     { children }
-  </View>
+  </Animated.View>
 )
 
-export default function Question() {
-  const Q = {
-    questions: [
-      { q: "This is a question 1", a: [] },
-      { q: "This is a question 2", a: [] }
-    ],
-    answers: [ 'A', 'B', 'C', 'D' ]
-  }
-
+export default function Question(
+  { name } : { name: string }
+) {
+  const duration = 200
   const [ questionIndex, setQuestionIndex ] = useState(1)
-  const [ answers, setAnswers ] = useState([
-    1, 2
-  ])
+  const [ answers, setAnswers ] = useState([1, 2])
   const [ answerShow, setAnswerShow ] = useState(true)
-  const translateX = useSharedValue<number>(0);
-  // const translateX1 = useSharedValue<number>(0);
 
-  const animatedStyles = useAnimatedStyle(() => ({
-    transform: [{ 
-      translateX: withTiming(
-        translateX.value, {easing: Easing.inOut(Easing.quad), duration: 1000}
-      )
-    }]
-  })) 
+  const Q = QuestionsType['Stress']
 
   const answerTextPressCallback = () => {
-    // if (questionIndex + 1 <= 2)
-      setQuestionIndex(questionIndex + 1)
-    // else 
-    //   setQuestionIndex(1)
+    setAnswerShow(false)
 
-    // translateX.value -= 300;
+    setTimeout(() => {
+      if (questionIndex + 1 <= Q.questions.length)
+        setQuestionIndex(questionIndex + 1)
+      else 
+      setQuestionIndex(1)
+      setAnswerShow(true)
+    }, duration)
   }
 
   const getAnswerText = () => (
@@ -83,36 +64,28 @@ export default function Question() {
   return (
     <LayoutContainer 
       safeArea={ false }
-      style={{ backgroundColor: 'white', marginTop: 40 }}
+      style={{ backgroundColor: 'white', marginTop: 40, zIndex: -1 }}
     >
-      <Container style={{ 
-        marginTop: 0,
-        flexDirection: 'column', 
-        justifyContent: 'space-between',
-        paddingTop: 10,
-        paddingBottom: 20,
-      }}>
-        <View style={{ marginTop: 50, justifyContent: 'center' }}>
-          <_Text style={ styles.questionText }>
-            { Q.questions[questionIndex - 1].q }
-          </_Text>
-        </View>
-        
-        <Animated.View 
-          layout={ LinearTransition }
-          // style={{ flexDirection: 'row' }}
-        >
-          { 
-            answers.map((answer) => {
-              if (answer >= questionIndex) {
-                return (<Answer key={answer}>
-                  { questionIndex } { getAnswerText() }
-                </Answer>)
-              }
-            })
-          }
-        </Animated.View>
-      </Container>
+      { answerShow ?
+        <Container style={{ 
+          marginTop: 0,
+          flexDirection: 'column', 
+          justifyContent: 'space-between',
+          paddingTop: 10,
+          paddingBottom: 20,
+        }}>
+          <Animated.View 
+            style={{ marginTop: 50, justifyContent: 'center' }}
+            entering={FadeInRight.duration(duration)} 
+            exiting={FadeOutLeft.duration(duration)}
+          >
+            <_Text style={ styles.questionText }>
+              {questionIndex}. { Q.questions[questionIndex - 1] }
+            </_Text>
+          </Animated.View>
+          <Answer>{ getAnswerText() }</Answer>
+        </Container> : ""
+      }
     </LayoutContainer>
   )
 }
@@ -120,6 +93,7 @@ export default function Question() {
 const styles = StyleSheet.create({
   questionText: {
     fontSize: 24,
+    marginBottom: 20,
     textAlign: 'center'
   },
   answerText: {
@@ -133,6 +107,7 @@ const styles = StyleSheet.create({
     marginTop: 10, 
     marginBottom: 10,
     width: '100%',
+    position: 'relative'
     // flex: 1
   }
 })
