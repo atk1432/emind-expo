@@ -1,10 +1,11 @@
 import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
 import { _Text } from "../TextUtilities";
 import { Container, LayoutContainer } from "../Containers";
-import { ReactNode, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 import Animated, { FadeInRight, FadeOutLeft, Easing} from 'react-native-reanimated';
 import QuestionsType from "@/api/mind_tests.json"
-
+import Result from "./Result";
+import { increaseScore, showResult } from "./utilities";
 
 
 const AnswerText = (
@@ -30,43 +31,54 @@ const Answer = ({ children } : { children?: ReactNode }) => (
 )
 
 export default function Question(
-  { name } : { name: string }
+  { name } : { name: "Stress" }
 ) {
-  const duration = 200
   const [ questionIndex, setQuestionIndex ] = useState(1)
-  const [ answers, setAnswers ] = useState([1, 2])
+  const [ resultShow, setResultShow ] = useState(false)
   const [ answerShow, setAnswerShow ] = useState(true)
-
+  const score = useRef(0)
   const Q = QuestionsType['Stress']
+  const duration = 300
+  const questionLength = Q.questions.length
 
-  const answerTextPressCallback = () => {
+
+  const answerTextPressCallback = (answerIndex : number) => ( () => {
+    const nextQuestion = questionIndex + 1
     setAnswerShow(false)
 
-    setTimeout(() => {
-      if (questionIndex + 1 <= Q.questions.length)
-        setQuestionIndex(questionIndex + 1)
-      else 
-      setQuestionIndex(1)
-      setAnswerShow(true)
-    }, duration)
-  }
+    increaseScore(score, answerIndex, name)
+    if (nextQuestion <= questionLength) {
+      setTimeout(() => {
+        setQuestionIndex(questionIndex + 1)  
+        setAnswerShow(true)
+      }, duration)
+    } else {
+      setTimeout(() => {
+        setResultShow(true)
+      }, duration + 1000)
+    }
+  } )
 
   const getAnswerText = () => (
     Q.answers.map((answer, index) => 
       <AnswerText 
         key={ index }
-        onPressable={ answerTextPressCallback }
+        onPressable={ answerTextPressCallback(index) }
       >
         { answer }
       </AnswerText>
   ))
 
-  return (
-    <LayoutContainer 
-      safeArea={ false }
-      style={{ backgroundColor: 'white', marginTop: 40, zIndex: -1 }}
-    >
-      { answerShow ?
+  const renderTest = () => {
+    if (resultShow) {
+      const result = showResult(score, name)
+      return (
+        <Result result={ result } />
+      )
+    }
+
+    if (answerShow)
+      return (
         <Container style={{ 
           marginTop: 0,
           flexDirection: 'column', 
@@ -84,8 +96,16 @@ export default function Question(
             </_Text>
           </Animated.View>
           <Answer>{ getAnswerText() }</Answer>
-        </Container> : ""
-      }
+        </Container>
+      )
+  }
+
+  return (
+    <LayoutContainer 
+      safeArea={ false }
+      style={{ backgroundColor: 'white', marginTop: 40, zIndex: -1 }}
+    >
+      { renderTest() }
     </LayoutContainer>
   )
 }
